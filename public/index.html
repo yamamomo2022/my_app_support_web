@@ -5,17 +5,79 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My App Customer Page</title>
     <style media="screen">
-      body { background: #ECEFF1; color: rgba(0,0,0,0.87); font-family: Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; }
-      #message { background: white; max-width: 360px; margin: 100px auto 16px; padding: 32px 24px; border-radius: 3px; }
-      #message h2 { color: #ffa100; font-weight: bold; font-size: 16px; margin: 0 0 8px; }
-      #message h1 { font-size: 22px; font-weight: 300; color: rgba(0,0,0,0.6); margin: 0 0 16px;}
-      #message p { line-height: 140%; margin: 16px 0 24px; font-size: 14px; }
-      #message a { display: block; text-align: center; background: #039be5; text-transform: uppercase; text-decoration: none; color: white; padding: 16px; border-radius: 4px; }
-      #message, #message a { box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); }
-      #load { color: rgba(0,0,0,0.4); text-align: center; font-size: 13px; }
+      /* Set full height and reset margin */
+      html, body {
+        height: 100%;
+        margin: 0;
+      }
+      /* Center content using flexbox */
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ECEFF1;
+        font-family: Roboto, Helvetica, Arial, sans-serif;
+        color: rgba(0,0,0,0.87);
+        padding: 10px;
+      }
+      /* Modern container styling */
+      #customer-content {
+        background: #fff;
+        padding: 32px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        max-width: 90%;
+        width: 100%;
+        text-align: center;
+      }
+      /* Responsive iframe */
+      iframe {
+        width: 100%;
+        height: 800px;
+        border: none;
+      }
+      /* Responsive typography */
+      h1 {
+        font-size: 1.8rem;
+        margin: 0.5em 0;
+      }
+      p {
+        font-size: 1rem;
+        line-height: 1.5;
+      }
+      /* Responsive breakpoints */
+      @media (min-width: 768px) {
+        #customer-content {
+          max-width: 700px;
+        }
+        h1 {
+          font-size: 2rem;
+        }
+      }
       @media (max-width: 600px) {
-        body, #message { margin-top: 0; background: white; box-shadow: none; }
-        body { border-top: 16px solid #ffa100; }
+        #customer-content {
+          margin: 10px;
+          padding: 20px;
+          max-width: 100%;
+        }
+        h1 {
+          font-size: 1.5rem;
+        }
+        iframe {
+          height: 600px;
+        }
+      }
+      @media (max-width: 480px) {
+        body {
+          padding: 0;
+        }
+        #customer-content {
+          padding: 15px;
+          border-radius: 0;
+        }
+        ul {
+          padding-left: 20px;
+        }
       }
     </style>
     <!-- Load external config for the iframe URL -->
@@ -23,17 +85,29 @@
   </head>
   <body>
     <div id="customer-content">
-      <h1>Welcome to My App</h1>
-      <p>This is a simple personal app. We appreciate your feedback—please fill out the form below.</p>
-      <!-- Remove hard-coded src attribute -->
-      <iframe id="google-form-frame" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+      <h1 style="text-align: center;">yamamomo個人開発アプリ</h1>
+      <h1 style="text-align: center;">問い合わせページ</h1>
+      <p>こちらの Google Form は、[アプリ名] に関するご質問・ご意見・ご要望などをお寄せいただくための専用フォームです。必要事項をご入力いただき送信していただくと、担当チームが迅速に対応いたします。</p>
+      <ul style="text-align: left; margin: 20px 0;">
+        <li>簡単入力: お名前、メールアドレス、問い合わせ内容など、必要な情報だけをシンプルに入力いただけます。</li>
+        <li>安心のプライバシー保護: ご提供いただいた情報は厳重に管理し、サポート以外の目的で使用することはございません。</li>
+        <li>スムーズなサポート: フォーム送信後は、内容確認の上、できるだけ早くご連絡させていただきます。</li>
+      </ul>
+      <p>何かお困りのことやご質問がございましたら、どうぞお気軽にお問い合わせください。皆様のご意見をもとに、より良いサービス提供に努めてまいります。</p>
+      <!-- Use an ID for the iframe to reference it in JavaScript -->
+      <iframe id="google-form-frame" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
     </div>
-    <!-- Set iframe src dynamically from external config -->
+    
     <script>
+      // Set the iframe src from the loaded config
       document.addEventListener('DOMContentLoaded', function() {
-        const frame = document.getElementById('google-form-frame');
-        if (frame && window.googleFormUrl) {
-          frame.src = window.googleFormUrl;
+        const formFrame = document.getElementById('google-form-frame');
+        if (window.googleFormUrl) {
+          formFrame.src = window.googleFormUrl;
+        } else {
+          // Fallback URL if config fails to load
+          formFrame.src = "https://docs.google.com/forms/d/e/1FAIpQLSedJCp89lQGcerLriq2LTfqyjcQ0-ZPb2y42hkm5QTGDhNZQw/viewform?usp=header";
+          console.error('Google Form URL not found in config');
         }
       });
     </script>
