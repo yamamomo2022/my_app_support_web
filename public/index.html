@@ -18,12 +18,24 @@
         body { border-top: 16px solid #ffa100; }
       }
     </style>
+    <!-- Load external config for the iframe URL -->
+    <script src="/config/googleFormUrl.js"></script>
   </head>
   <body>
     <div id="customer-content">
       <h1>Welcome to My App</h1>
       <p>This is a simple personal app. We appreciate your feedback—please fill out the form below.</p>
-      <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSedJCp89lQGcerLriq2LTfqyjcQ0-ZPb2y42hkm5QTGDhNZQw/viewform?usp=dialog" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
+      <!-- Remove hard-coded src attribute -->
+      <iframe id="google-form-frame" width="640" height="800" frameborder="0" marginheight="0" marginwidth="0">読み込んでいます…</iframe>
     </div>
+    <!-- Set iframe src dynamically from external config -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const frame = document.getElementById('google-form-frame');
+        if (frame && window.googleFormUrl) {
+          frame.src = window.googleFormUrl;
+        }
+      });
+    </script>
   </body>
 </html>
